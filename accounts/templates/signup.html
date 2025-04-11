@@ -1,0 +1,67 @@
+{% extends 'baseForm.html' %}
+{% load static %}  <!-- Add this line to load the static tag library -->
+{% block title %}Sign Up - Meesho Style{% endblock %}
+
+{% block content %}
+  <!-- Correct image path using Django static tag -->
+  <img src="{% static 'img/s.webp' %}" alt="Sign In visual" />
+  <h2>Sign Up</h2>
+  <form method="POST" action="{% url 'signup' %}">
+    {% csrf_token %}
+    {% if messages %}
+    <div class="alert alert-primary" role="alert">
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
+    </div>
+
+    {% endif %}
+    <!-- Username Input -->
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" placeholder="Enter your username" required />
+    </div>
+
+    <!-- Email Input -->
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email address" required />
+    </div>
+
+    <!-- Password Input -->
+    <div class="form-group">
+      <label for="password">Create Password</label>
+      <input type="password" id="password" name="password" placeholder="Enter a strong password" required />
+    </div>
+
+    <!-- Confirm Password Input -->
+    <div class="form-group">
+      <label for="confirm_password">Confirm Password</label>
+      <input type="password" id="confirm_password" name="confirm_password" placeholder="Re-enter your password" required />
+    </div>
+
+    <!-- Address Input -->
+    <div class="form-group">
+      <label for="address">Address</label>
+      <input type="text" id="address" name="address" placeholder="Enter your address" required />
+    </div>
+
+    <!-- Pin Code Input -->
+    <div class="form-group">
+      <label for="pin_code">Pin Code</label>
+      <input type="text" id="pin_code" name="pin_code" placeholder="Enter your pin code" required />
+    </div>
+
+    <!-- Phone Number Input -->
+    <div class="form-group">
+      <label for="phone_number">Phone Number</label>
+      <input type="tel" id="phone_number" name="phone_number" placeholder="Enter your phone number" required />
+    </div>
+
+    <button type="submit">Submit</button>
+
+    <div class="signup-link">
+      Already have an account? <a href="{% url 'login' %}">Sign in</a>
+    </div>
+  </form>
+{% endblock %}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f8;
+            padding: 30px;
+        }
+
+        .profile-container {
+            max-width: 600px;
+            background-color: #fff;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .profile-row {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .label {
+            width: 150px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .value {
+            flex: 1;
+            color: #222;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-container">
+        <h2>Welcome, {{ user.first_name }}</h2>
+
+        <div class="profile-row">
+            <div class="label">Full Name:</div>
+            <div class="value">{{ user.first_name }}</div>
+        </div>
+
+        <div class="profile-row">
+            <div class="label">Email:</div>
+            <div class="value">{{ user.email }}</div>
+        </div>
+
+        <div class="profile-row">
+            <div class="label">Phone:</div>
+            <div class="value">{{ user.profile.mobile }}</div>
+        </div>
+    </div>
+
+</body>
+</html>

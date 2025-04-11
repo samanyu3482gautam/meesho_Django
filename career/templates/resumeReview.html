@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Review Dashboard</title>
+    <style>
+        /* CSS Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            color: #ecf0f1;
+            opacity: 0.9;
+        }
+        
+        /* Resume Card Styles */
+        .resumes-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .resume-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .resume-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .resume-header {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .applicant-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 20px;
+            border: 3px solid #f1f1f1;
+        }
+        
+        .applicant-info {
+            flex: 1;
+        }
+        
+        .applicant-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        
+        .applicant-occupation {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .resume-details {
+            padding: 20px;
+        }
+        
+        .resume-details > img {
+            height: 90%;
+            width: 90%;
+        }
+        
+        .detail-row {
+            display: flex;
+            margin-bottom: 12px;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            color: #7f8c8d;
+            width: 120px;
+            flex-shrink: 0;
+        }
+        
+        .detail-value {
+            flex: 1;
+            color: #34495e;
+        }
+        
+        .action-buttons {
+            display: flex;
+            padding: 15px 20px;
+            background-color: #f9f9f9;
+            border-top: 1px solid #eee;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-accept {
+            background-color: #2ecc71;
+            color: white;
+            margin-right: 10px;
+        }
+        
+        .btn-accept:hover {
+            background-color: #27ae60;
+        }
+        
+        .btn-decline {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .btn-decline:hover {
+            background-color: #c0392b;
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        /* Status Indicator */
+        .status {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .status-pending {
+            background-color: #f39c12;
+            color: white;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: #7f8c8d;
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #bdc3c7;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .resumes-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .resume-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .applicant-photo {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Resume Review Dashboard</h1>
+            <p class="subtitle">Any Data Breach By Employer Will Lead To Serious Consequences </p>
+        </header>
+        
+        <div class="resumes-container">
+            {% if not resumes %}
+            <div class="resume-card" style="display: flex;align-items: center;justify-content: center;">
+                <h1><i>No Resumes Submitted Yet</i></h1>
+            </div>
+            {% else %}
+            
+            {% for resume in resumes %}
+            <!-- Resume Card 1 -->
+            <div class="resume-card">
+                <div class="resume-header">
+                    
+                    <div class="applicant-info">
+                        <h2 class="applicant-name">{{resume.first_name}}</h2>
+                        <p class="applicant-occupation">{{ resume.position}}</p>
+                        <span class="status status-pending">Pending</span>
+                    </div>
+                </div>
+                <div class="resume-details">
+                    <img src="{{resume.resume_image.url}}" alt="img">
+                </div>
+                <div class="action-buttons">
+                    
+                    <form method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-accept"><i class="fas fa-check"></i> Accept</button>
+                    </form>
+                    <form method="DELETE">
+                        {% csrf_token %}
+                        <button class="btn btn-decline"><i class="fas fa-times"></i><a href="{% url 'resume_decline' %}"> Decline</a>/button>
+                    </form>
+                    
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+           
+        </div>
+    </div>
+
+    <script>
+        // Basic functionality for accept/decline buttons
+        document.querySelectorAll('.btn-accept').forEach(button => {
+            button.addEventListener('click', function() {
+                const card = this.closest('.resume-card');
+                alert('Resume accepted!');
+                // In a real app, you would send this to your backend
+                card.style.opacity = '0.5';
+                card.style.pointerEvents = 'none';
+            });
+        });
+        
+        document.querySelectorAll('.btn-decline').forEach(button => {
+            button.addEventListener('click', function() {
+                const card = this.closest('.resume-card');
+                alert('Resume declined!');
+                // In a real app, you would send this to your backend
+                card.style.opacity = '0.5';
+                card.style.pointerEvents = 'none';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - Messho</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header, section {
+    padding: 20px;
+    margin: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin: 5px 0;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 20px;
+}
+
+.profile-picture img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+
+.profile-info h2 {
+    margin: 0;
+    font-size: 2em;
+    color: #333;
+}
+
+.profile-info p {
+    font-size: 1.2em;
+    color: #666;
+}
+.personal-info label {
+    font-size: 1.1em;
+    margin-top: 10px;
+    display: block;
+}
+
+.personal-info input, .personal-info textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.personal-info textarea {
+    resize: vertical;
+    height: 100px;
+}
+.order-history {
+    font-size: 1.2em;
+}
+
+.wishlist-items {
+    font-size: 1.2em;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+}
+
+footer button {
+    background-color: #dc3545;
+}
+
+footer button:hover {
+    background-color: #c82333;
+}
+    </style>
+</head>
+<body>
+
+    <!-- Profile Header -->
+    <header class="profile-header">
+        <div class="profile-picture">
+            <img id="profile-img" src="profile-pic.jpg" alt="User Profile Picture">
+        </div>
+        <div class="profile-info">
+            <p id="account-type">Account Type: Buyer</p>
+        </div>
+    </header>
+
+    <!-- Personal Information Section -->
+    <section class="personal-info">
+        <h3>Personal Information</h3>
+        <form id="personal-info-form">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email">
+            <label for="phone">Phone:</label>
+            <input type="text" id="phone" name="phone" placeholder="Enter your phone number">
+            <label for="gender">Gender:</label>
+            <input type="text" id="gender" name="gender" placeholder="Enter your gender">
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob">
+            <label for="address">Address:</label>
+            <textarea id="address" name="address" placeholder="Enter your address"></textarea>
+            <button type="submit">Save Details</button>
+        </form>
+    </section>
+
+    <!-- Order History Section -->
+    <section class="order-history">
+        <h3>Order History</h3>
+        <p id="order-history">No orders yet.</p>
+    </section>
+
+    <!-- Wishlist Section -->
+    <section class="wishlist">
+        <h3>Wishlist</h3>
+        <div id="wishlist-items">No items in wishlist yet.</div>
+    </section>
+
+    <!-- Account Settings -->
+    <section class="account-settings">
+        <h3>Account Settings</h3>
+        <button>Change Password</button>
+        <button>Notification Preferences</button>
+        <button>Language & Currency</button>
+    </section>
+
+    <!-- Support Section -->
+    <section class="support">
+        <h3>Support & Help</h3>
+        <button>Contact Customer Service</button>
+        <button>Live Chat</button>
+        <button>FAQ</button>
+        <button>Submit Feedback</button>
+    </section>
+
+    <!-- Logout Button -->
+    <footer class="logout">
+        <button>Logout</button>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 
