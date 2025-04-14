@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect
 from .models import *
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
+from django.contrib import messages
 # Create your views here.
 
 @login_required(login_url='/login/')
@@ -18,12 +20,16 @@ def career_with_us(request):
         position = request.POST.get('position')
         resume = request.FILES.get('resume')
         Position.objects.create(first_name=name,email=email,position=position,resume_image=resume)
+        messages.info(request,'Data Updated In Our Servers')
         return redirect('career')
     return render(request,'test.html', {'roles': roles})
 
 
 @login_required(login_url='/login/')
 def become_supplier(request):
+    if request.method=="POST":
+        messages.info(request,"Your Supplier Account Has Been Created We Will Contact You Shortly")
+
     return render(request,'supplier.html')
 
 
@@ -36,8 +42,10 @@ def review_resume(request):
 
 def decline_request(request, _id):
 
-    if request.methods == "DELETE":
-        ele = Position.objects.get(id=_id)
-        ele.delete()
+    if request.method == "POST":
+        resume = get_object_or_404(Position, id=_id)
+        if resume:
+            #resume.resume_image.delete()
+            resume.delete()
 
     return redirect('reviewResume')

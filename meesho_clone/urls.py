@@ -16,7 +16,7 @@ urlpatterns = [
     path('logout/',logout_page,name="logout_page"),
     path('supplier/',become_supplier,name="supplier"),
     path('reviewResume/',review_resume,name="reviewResume"),
-    path('resume_decline/', decline_request, name="decline_request")
+    path('resumeDecline/<int:_id>', decline_request, name="resumeDecline")
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

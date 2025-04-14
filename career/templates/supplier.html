@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
     <title>Become a Supplier - Meesho Clone</title>
     <style>
         /* Reset and Base Styles */
@@ -415,13 +418,14 @@
         }
     </style>
 </head>
+
 <body>
     <header>
         <div class="container">
             <div class="header-content">
                 <a href="#" class="logo">Meesho<span>Supplier</span></a>
                 <div class="nav-links">
-                    <a href="#">Home</a>
+                    <a href="{% url 'home' %}">Home</a>
                     <a href="#">Why Sell</a>
                     <a href="#">How It Works</a>
                     <a href="#">Pricing</a>
@@ -430,11 +434,13 @@
             </div>
         </div>
     </header>
+   
 
     <section class="hero">
         <div class="container">
             <h1>Sell Your Products to Millions of Customers</h1>
-            <p>Join Meesho as a supplier and grow your business with India's largest reseller platform. Zero investment required!</p>
+            <p>Join Meesho as a supplier and grow your business with India's largest reseller platform. Zero investment
+                required!</p>
             <a href="#register" class="cta-button">Register Now</a>
         </div>
     </section>
@@ -497,19 +503,22 @@
             <div class="testimonial-grid">
                 <div class="testimonial-card">
                     <div class="testimonial-content">
-                        <p>Since joining Meesho, my small handicraft business has grown 5x. The reseller network is amazing and I get orders from all over India without any marketing effort.</p>
+                        <p>Since joining Meesho, my small handicraft business has grown 5x. The reseller network is
+                            amazing and I get orders from all over India without any marketing effort.</p>
                     </div>
                     <div class="testimonial-author">- Priya Sharma, Handicrafts Supplier</div>
                 </div>
                 <div class="testimonial-card">
                     <div class="testimonial-content">
-                        <p>As a small manufacturer, I struggled to reach customers. Meesho helped me connect with thousands of resellers who sell my products. My revenue has tripled in just 6 months.</p>
+                        <p>As a small manufacturer, I struggled to reach customers. Meesho helped me connect with
+                            thousands of resellers who sell my products. My revenue has tripled in just 6 months.</p>
                     </div>
                     <div class="testimonial-author">- Rajesh Patel, Apparel Manufacturer</div>
                 </div>
                 <div class="testimonial-card">
                     <div class="testimonial-content">
-                        <p>The best decision I made was to list my home decor products on Meesho. The platform is easy to use and payments come on time. Highly recommended for small businesses.</p>
+                        <p>The best decision I made was to list my home decor products on Meesho. The platform is easy
+                            to use and payments come on time. Highly recommended for small businesses.</p>
                     </div>
                     <div class="testimonial-author">- Anjali Mehta, Home Decor Supplier</div>
                 </div>
@@ -525,7 +534,15 @@
             </div>
             <div class="form-container">
                 <form method="POST">
-                    
+                    {% csrf_token %}
+                    {% if messages %}
+                    <div class="alert alert-primary" role="alert">
+                        {% for message in messages %}
+                        {{ message }}
+                        {% endfor %}
+                    </div>
+
+                    {% endif %}
                     <div class="form-group">
                         <label for="name">Full Name</label>
                         <input type="text" id="name" required>
@@ -576,7 +593,9 @@
                         <span>+</span>
                     </div>
                     <div class="faq-answer">
-                        <p>To become a supplier, you need to have a registered business (sole proprietorship, partnership, or private limited company), GSTIN number, and a product catalog with at least 10 unique products.</p>
+                        <p>To become a supplier, you need to have a registered business (sole proprietorship,
+                            partnership, or private limited company), GSTIN number, and a product catalog with at least
+                            10 unique products.</p>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -585,7 +604,8 @@
                         <span>+</span>
                     </div>
                     <div class="faq-answer">
-                        <p>No, registering as a supplier on Meesho is completely free. There are no hidden charges or fees.</p>
+                        <p>No, registering as a supplier on Meesho is completely free. There are no hidden charges or
+                            fees.</p>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -594,7 +614,8 @@
                         <span>+</span>
                     </div>
                     <div class="faq-answer">
-                        <p>Payments are processed weekly and transferred directly to your registered bank account. You'll receive payment within 7 days of order delivery.</p>
+                        <p>Payments are processed weekly and transferred directly to your registered bank account.
+                            You'll receive payment within 7 days of order delivery.</p>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -603,7 +624,8 @@
                         <span>+</span>
                     </div>
                     <div class="faq-answer">
-                        <p>As a supplier, you're responsible for shipping products to customers. However, we provide shipping labels and partner with logistics providers to make the process easier.</p>
+                        <p>As a supplier, you're responsible for shipping products to customers. However, we provide
+                            shipping labels and partner with logistics providers to make the process easier.</p>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -612,7 +634,8 @@
                         <span>+</span>
                     </div>
                     <div class="faq-answer">
-                        <p>Currently, Meesho only supports domestic sales within India. We may expand to international markets in the future.</p>
+                        <p>Currently, Meesho only supports domestic sales within India. We may expand to international
+                            markets in the future.</p>
                     </div>
                 </div>
             </div>
@@ -673,7 +696,7 @@
             question.addEventListener('click', () => {
                 const item = question.parentNode;
                 item.classList.toggle('active');
-                
+
                 // Toggle the + and - signs
                 const toggleSign = question.querySelector('span:last-child');
                 if (item.classList.contains('active')) {
@@ -685,4 +708,5 @@
         });
     </script>
 </body>
+
 </html>
