@@ -1,11 +1,29 @@
-from django.shortcuts import render
+from django.shortcuts import render,HttpResponse
 from accounts.models import *
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-# Create your views here.
+from accounts.models import Account
 
 
-# @login_required(login_url='login')
+
 def home(request):
     
-    return render(request, 'index.html')  # assuming your main HTML file is index.html
+
+    return render(request, 'index.html')
+
+
+
+
+def profile(request):
+    user=request.user
+    try:
+        account=Account.objects.get(user=user)
+    except:
+        account=None
+
+
+    return render(request,'profile.html',{'user':user,'account':account})
+
+
+
+

@@ -1,181 +1,167 @@
- <!DOCTYPE html>
+{% load static %}
+
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile - Messho</title>
-    <style>
-        body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-}
+    <title>Profile Page</title>
 
-header, section {
-    padding: 20px;
-    margin: 10px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+    <!-- Custom Css -->
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 
-h3 {
-    font-size: 1.5em;
-    margin-bottom: 15px;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    margin: 5px 0;
-}
-
-button {
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-.profile-header {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    border-bottom: 2px solid #eee;
-    padding-bottom: 20px;
-}
-
-.profile-picture img {
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-}
-
-.profile-info h2 {
-    margin: 0;
-    font-size: 2em;
-    color: #333;
-}
-
-.profile-info p {
-    font-size: 1.2em;
-    color: #666;
-}
-.personal-info label {
-    font-size: 1.1em;
-    margin-top: 10px;
-    display: block;
-}
-
-.personal-info input, .personal-info textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    font-size: 1em;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-}
-
-.personal-info textarea {
-    resize: vertical;
-    height: 100px;
-}
-.order-history {
-    font-size: 1.2em;
-}
-
-.wishlist-items {
-    font-size: 1.2em;
-}
-
-footer {
-    text-align: center;
-    padding: 20px;
-}
-
-footer button {
-    background-color: #dc3545;
-}
-
-footer button:hover {
-    background-color: #c82333;
-}
-    </style>
+    <!-- FontAwesome 5 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
 </head>
 <body>
-
-    <!-- Profile Header -->
-    <header class="profile-header">
-        <div class="profile-picture">
-            <img id="profile-img" src="profile-pic.jpg" alt="User Profile Picture">
+    <!-- Navbar top -->
+    <div class="navbar-top">
+        <div class="title">
+            <h1>Meesho Profile</h1>
         </div>
-        <div class="profile-info">
-            <p id="account-type">Account Type: Buyer</p>
+
+        <!-- Navbar -->
+        <ul>
+            
+            
+            <li>
+                <a href="#notification">
+                    <span class="icon-count">5</span>
+                    <i class="fa fa-bell fa-2x"></i>
+                </a>
+            </li>
+            <li>
+                <a href="/logout">
+                    <i class="fa fa-sign-out-alt fa-2x"></i>
+                </a>
+            </li>
+        </ul>
+        <!-- End -->
+    </div>
+    <!-- End -->
+
+    <!-- Sidenav -->
+    <div class="sidenav">
+        <div class="profile">
+            <img src="https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg?semt=ais_hybrid&w=740" alt="" width="100" height="100">
+            {% if user.is_authenticated and account %}
+            <div class="name">
+               Hi, {{user.username}}
+            </div>
+            <div class="job">
+                Mobile: {{account.mobile}}
+            </div>
+            {% else %}
+            <div class="name">
+                Hi, User
+             </div>
+             <div class="job">
+                 Mobile: None
+             </div>
+             {% endif %}
+
         </div>
-    </header>
 
-    <!-- Personal Information Section -->
-    <section class="personal-info">
-        <h3>Personal Information</h3>
-        <form id="personal-info-form">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email">
-            <label for="phone">Phone:</label>
-            <input type="text" id="phone" name="phone" placeholder="Enter your phone number">
-            <label for="gender">Gender:</label>
-            <input type="text" id="gender" name="gender" placeholder="Enter your gender">
-            <label for="dob">Date of Birth:</label>
-            <input type="date" id="dob" name="dob">
-            <label for="address">Address:</label>
-            <textarea id="address" name="address" placeholder="Enter your address"></textarea>
-            <button type="submit">Save Details</button>
-        </form>
-    </section>
+        <div class="sidenav-url">
+            <div class="url">
+                <a href="{% url 'home' %}" class="active">Home</a>
+                <hr align="center">
+            </div>
+            <div class="url">
+                <a href="#settings">Password</a>
+                <hr align="center">
+            </div>
+        </div>
+    </div>
+    <!-- End -->
 
-    <!-- Order History Section -->
-    <section class="order-history">
-        <h3>Order History</h3>
-        <p id="order-history">No orders yet.</p>
-    </section>
+    <!-- Main -->
+    <div class="main">
+        <h2>IDENTITY</h2>
+        <div class="card">
+            <div class="card-body">
+                <i class="fa fa-pen fa-xs edit"></i>
+                <table>
+                    <tbody>
+                        {% if user.is_authenticated and account %}
+                        <tr>
+                            <td>Name</td>
+                            <td>:</td>
+                            <td>{{user.username}}</td>
+                        </tr>
+                        
+                        
+                        <tr>
+                            <td>Email</td>
+                            <td>:</td>
+                            <td>{{user.email}}</td>
+                        </tr>
+                        <tr>
+                            <td>Address</td>
+                            <td>:</td>
+                            <td>{{account.address}}</td>
+                        </tr>
+                        <tr>
+                            <td>Pincode</td>
+                            <td>:</td>
+                            <td>{{account.pincode}}</td>
+                        </tr>
+                        <tr>
+                            <td>Mobile</td>
+                            <td>:</td>
+                            <td>{{account.mobile}}</td>
+                        </tr>
+                        <tr>
+                            <td>Username</td>
+                            <td>:</td>
+                            <td>{{user.username}}</td>
+                        </tr>
+                        {% else %}
+                        <tr><h2>Not Logged In</h2></tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-    <!-- Wishlist Section -->
-    <section class="wishlist">
-        <h3>Wishlist</h3>
-        <div id="wishlist-items">No items in wishlist yet.</div>
-    </section>
-
-    <!-- Account Settings -->
-    <section class="account-settings">
-        <h3>Account Settings</h3>
-        <button>Change Password</button>
-        <button>Notification Preferences</button>
-        <button>Language & Currency</button>
-    </section>
-
-    <!-- Support Section -->
-    <section class="support">
-        <h3>Support & Help</h3>
-        <button>Contact Customer Service</button>
-        <button>Live Chat</button>
-        <button>FAQ</button>
-        <button>Submit Feedback</button>
-    </section>
-
-    <!-- Logout Button -->
-    <footer class="logout">
-        <button>Logout</button>
-    </footer>
-
-    <script src="script.js"></script>
+        <h2>SOCIAL MEDIA</h2>
+        <div class="card">
+            <div class="card-body">
+                <i class="fa fa-pen fa-xs edit"></i>
+                <div class="social-media">
+                    <span class="fa-stack fa-sm">
+                        <i class="fas fa-circle fa-stack-2x"></i>
+                        <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <span class="fa-stack fa-sm">
+                        <i class="fas fa-circle fa-stack-2x"></i>
+                        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <span class="fa-stack fa-sm">
+                        <i class="fas fa-circle fa-stack-2x"></i>
+                        <i class="fab fa-instagram fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <span class="fa-stack fa-sm">
+                        <i class="fas fa-circle fa-stack-2x"></i>
+                        <i class="fab fa-invision fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <span class="fa-stack fa-sm">
+                        <i class="fas fa-circle fa-stack-2x"></i>
+                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <span class="fa-stack fa-sm">
+                        <i class="fas fa-circle fa-stack-2x"></i>
+                        <i class="fab fa-whatsapp fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <span class="fa-stack fa-sm">
+                        <i class="fas fa-circle fa-stack-2x"></i>
+                        <i class="fab fa-snapchat fa-stack-1x fa-inverse"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End -->
 </body>
-</html> 
+</html>

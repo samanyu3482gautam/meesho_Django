@@ -1,67 +1,44 @@
-import BagsFootwear from "./data/BagsFootwear.js";
-import BeautyHealth from "./data/BeautyHealth.js";
-import Electronics from "./data/Electronic.js";
-import HomeAndKitchen from "./data/HomeAndKitchen.js";
-import JewelleryAccessories from "./data/JewelleryAccessories.js";
-import Kids from "./data/Kids.js";
-import Men from "./data/Men.js";
-import WomenEthnic from "./data/WomenEthnic.js";
-import WomenWestern from "./data/WomenWestern.js";
+let inputSearchEl = document.querySelector(".inputSearch");
+let recentInput = [];
+let formInputEl = document.getElementById("inputForm");
+const listofRecentEl = document.querySelector(".listofRecent");
 
-
-
-
-
-
-let inputSearchEl = document.querySelector(".inputSearch")
-let recentInput = []
-let formInputEl = document.getElementById("inputForm")
-const listofRecentEl = document.querySelector(".listofRecent")
-
-
-
-// inputSearchEl.addEventListener("keydown", () => {
-//     // console.log(inputSearchEl)
-//     if (inputSearchEl.value) {
-//         document.getElementById("closeSearch").style.display = "block"
-//     }
-//     else {
-//         document.getElementById("closeSearch").style.display = "none"
-//     }
-// })
+// Handling input changes to show recent searches modal
 inputSearchEl.addEventListener("keydown", () => {
     const closeBtn = document.getElementById("closeSearch");
     const recentModal = document.querySelector(".searchRecentModal");
 
     if (inputSearchEl.value.trim()) {
         closeBtn.style.display = "block";
-        recentModal.style.display = "block"; // 👈 Show modal
+        recentModal.style.display = "block"; // Show modal
     } else {
         closeBtn.style.display = "none";
-        recentModal.style.display = "none"; // 👈 Hide modal
+        recentModal.style.display = "none"; // Hide modal
     }
 });
 
-// 👇 Also add this to hide modal when focus is lost
+// Hide modal when the input loses focus
 inputSearchEl.addEventListener("blur", () => {
     document.querySelector(".searchRecentModal").style.display = "none";
 });
 
-// Optional: Show again if user clicks back into search
+// Show modal again if the input gets focus
 inputSearchEl.addEventListener("focus", () => {
     if (inputSearchEl.value.trim()) {
         document.querySelector(".searchRecentModal").style.display = "block";
     }
 });
 
-
+// Handling the form submission and adding recent searches
 formInputEl.addEventListener("submit", (e) => {
-    e.preventDefault()
-    let listofRecentHTMLEl = ""
+    e.preventDefault(); // Prevent form submission
+    let listofRecentHTMLEl = "";
 
-    recentInput.unshift(inputSearchEl.value)
-    console.log(recentInput)
+    // Add the search query to recent searches
+    recentInput.unshift(inputSearchEl.value);
+    console.log(recentInput);
 
+    // Render the recent searches in the modal
     if (recentInput.length > 0) {
         for (let i = 0; i < recentInput.length; i++) {
             listofRecentHTMLEl += `
@@ -71,157 +48,74 @@ formInputEl.addEventListener("submit", (e) => {
                 </div>
                 <p>${recentInput[i]}</p>
             </div>
-        `
+        `;
         }
-
-        listofRecentEl.innerHTML = listofRecentHTMLEl
+        listofRecentEl.innerHTML = listofRecentHTMLEl;
     }
-})
 
-/*function reuble*****/
+    // Trigger the AJAX request to get search results
+    fetch(`/search/?query=${encodeURIComponent(inputSearchEl.value.trim())}`, {
+        method: 'GET',
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Render the search results dynamically
+        renderSearchResults(data);
+    })
+    .catch(error => console.error('Error fetching search results:', error));
+});
+
+// Function to render the search results dynamically
+function renderSearchResults(data) {
+    let resultsHTML = "";
+    if (data && data.length > 0) {
+        data.forEach(item => {
+            resultsHTML += `
+            <div class="productCard">
+                <div class="product_image">
+                    <img src="./meesho/productImage/${item.img}" alt="${item.name}" />
+                </div>
+                <h3 class="product_name">${item.name}</h3>
+                <p class="product_price">
+                    <span>₹</span>
+                    <span>${item.price}</span>
+                </p>
+            </div>
+            `;
+        });
+    } else {
+        resultsHTML = "<p>No results found</p>";
+    }
+    document.getElementById("product_category_displayId").innerHTML = resultsHTML;
+}
+
+// You can keep the `renderSubMenu` and product filtering code as is for other sections
 function renderSubMenu(id, data) {
-    let temp = document.getElementById(id)
+    let temp = document.getElementById(id);
     function TempFunc() {
         return data.map(el => {
             let list = "";
-            list = el.data.map(element => `<p>${element}</p>`).join(" ")
+            list = el.data.map(element => `<p>${element}</p>`).join(" ");
             return `
         <div class="column">
             <h4>${el.heading}</h4>
             ${list}
         </div>
-       `
-        }).join("")
+       `;
+        }).join("");
     }
-    temp.innerHTML = TempFunc()
+    temp.innerHTML = TempFunc();
 }
 
+// Call the renderSubMenu for different sections (womenEthic, WomenWestern, etc.)
+renderSubMenu("womenEthic", WomenEthnic);
+renderSubMenu("womenWestern", WomenWestern);
+renderSubMenu("men", Men);
+renderSubMenu("kids", Kids);
+renderSubMenu("HomeAndKitchen", HomeAndKitchen);
+renderSubMenu("beautyAndHealth", BeautyHealth);
+renderSubMenu("JewelleryAndAccessories", JewelleryAccessories);
+renderSubMenu("BagsFootWarId", BagsFootwear);
+renderSubMenu("ElectronicsId", Electronics);
 
-
-
-
-
-/****womenEthic */
-renderSubMenu("womenEthic", WomenEthnic)
-
-/****WomenWestern */
-renderSubMenu("womenWestern", WomenWestern)
-
-//Men 
-renderSubMenu("men", Men)
-
-/***kids */
-renderSubMenu("kids", Kids)
-
-/**home % kitchen */
-renderSubMenu("HomeAndKitchen", HomeAndKitchen)
-
-/**beauty and health */
-renderSubMenu("beautyAndHealth", BeautyHealth)
-
-// Jewellery & Accessories
-renderSubMenu("JewelleryAndAccessories", JewelleryAccessories)
-
-// Bags & Footwear
-renderSubMenu("BagsFootWarId", BagsFootwear)
-
-// Electronics
-renderSubMenu("ElectronicsId", Electronics)
-
-
-
-/**********product section***************/
-import ProductData from "./data/data.js"
-
-const category = [...new Set(ProductData.map(el => el.category))]
-console.log(category)
-
-
-let filterData = []
-
-document.addEventListener("click", (e) => {
-
-
-    const bluetoothEl = document.getElementById("bluetooth").checked
-    const ChainsEl = document.getElementById("chains").checked
-    const KurtasEl = document.getElementById("kurtas").checked
-    const AccessoriesEl = document.getElementById("accessories").checked
-    const sareesEl = document.getElementById("sarees").checked
-    const watchEl = document.getElementById("watch").checked
-
-    console.log(bluetoothEl)
-    filterData = ProductData.filter(el => (
-        bluetoothEl && el.category == "bluetooth Headset" ||
-        ChainsEl && el.category == "Men Chains" ||
-        KurtasEl && el.category == "Kurtas" ||
-        AccessoriesEl && el.category == "Mobile Accessories" ||
-        sareesEl && el.category == "sarees" ||
-        watchEl && el.category == "watch"
-    ))
-
-    renderProductData()
-
-
-})
-
-function renderProductData(){
-    let filterDataHTML = "";
-
-    if(filterData[0]){
-        filterData.forEach(el => {
-            filterDataHTML += `
-            <div class="productCard" onclick="ClickProduct(${el.id})">
-                <div class="product_image">
-                    <img src="./meesho/productImage/${el.img}"/>
-                </div>
-                <h3 class="product_name">${el.name}</h3>
-                <p class="product_price">
-                    <span>₹</span>
-                    <span>${el.price}</span>
-                </p>
-             </div>
-            `
-        })
-    }
-    else{
-        ProductData.forEach(el => {
-            filterDataHTML += `
-            <div class="productCard" onclick="ClickProduct(${el.id})">
-                <div class="product_image">
-                    <img src="./meesho/productImage/${el.img}"/>
-                </div>
-                <h3 class="product_name">${el.name}</h3>
-                <p class="product_price">
-                    <span>₹</span>
-                    <span>${el.price}</span>
-                </p>
-             </div>
-            `
-        }) 
-    }
-    
-    document.getElementById("product_category_displayId").innerHTML = filterDataHTML
-} 
-renderProductData()
-
-
-
-function ClickProduct(id){
-    localStorage.setItem("productId",JSON.stringify(id))
-    // window.location("./page/product.html")
-
-    alert("hii")
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
+// You can keep the product section and filtering code as is

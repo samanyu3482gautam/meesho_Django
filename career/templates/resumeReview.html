@@ -28,7 +28,8 @@
 
         /* Header Styles */
         header {
-            background-color: #2c3e50;
+            background: linear-gradient(to bottom, #f7b6d2, #fcbf96);
+
             color: white;
             padding: 20px 0;
             text-align: center;
@@ -269,39 +270,40 @@
     </div>
 
     <script>
-
-        let id = prompt("Enter Your Employer Id : ")
-        if (id == "meesho") {
-            alert("Do Not Share Sensitive Data Outside Premises.")
-            // Basic functionality for accept/decline buttons
-            document.querySelectorAll('.btn-accept').forEach(button => {
-                button.addEventListener('click', function () {
-                    const card = this.closest('.resume-card');
-                    alert('Resume accepted!');
-                    // In a real app, you would send this to your backend
-                    card.style.opacity = '0.5';
-                    card.style.pointerEvents = 'none';
-                });
-            });
-
-            document.querySelectorAll('.btn-decline').forEach(button => {
-                button.addEventListener('click', function () {
-                    const card = this.closest('.resume-card');
-                    alert('Resume declined!');
-                    // In a real app, you would send this to your backend
-                    card.style.opacity = '0.5';
-                    card.style.pointerEvents = 'none';
-                });
-            });
-        }
-        
-            else {
+        if (!sessionStorage.getItem("employerVerified")) {
+            let id = prompt("Enter Your Employer Id : ");
+            if (id === "meesho") {
+                alert("Do Not Share Sensitive Data Outside Premises.");
+                sessionStorage.setItem("employerVerified", "true");
+            } else {
                 alert("Unauthorized Access!");
                 document.body.innerHTML = "<h1 style='color:red;text-align:center;'>Access Denied</h1>";
             }
-
-        
+        }
+    
+        // Accept button logic
+        document.querySelectorAll('.btn-accept').forEach(button => {
+            button.addEventListener('click', function () {
+                const card = this.closest('.resume-card');
+                alert('Resume accepted!');
+                card.style.opacity = '0.5';
+                card.style.pointerEvents = 'none';
+            });
+        });
+    
+        // Decline button logic
+        document.querySelectorAll('.btn-decline').forEach(button => {
+            button.addEventListener('click', function () {
+                const card = this.closest('.resume-card');
+                alert('Resume declined!');
+                card.style.opacity = '0.5';
+                card.style.pointerEvents = 'none';
+            });
+        });
     </script>
+    
+
+     
 </body>
 
 </html>
