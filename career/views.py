@@ -12,7 +12,10 @@ def career_with_us(request):
         {'role':"Software Engineer",'location':"Bangalore",'Required':"2+ years experience in software development"},
         {'role':"Product manager",'location':"Remote",'Required':"Experience in product lifestyle management"},
         {'role':"Backend Developer",'location':"Delhi",'Required':"4+ years experience in Django"},
-        {'role':"UI/UX engineer",'location':"Bangalore",'Required':"1+ years experience in UI/UX design"},
+        {'role':"UI/UX engineer(4+)",'location':"Bangalore",'Required':"4+ years experience in UI/UX design"},
+        # {'role':"UI/UX engineer(1+)",'location':"Work From Home",'Required':"1+ years experience in UI/UX design"},
+        # {'role':"Sales",'location':"Bangalore",'Required':"8+ years experience in Marketing"},
+        
     ]
     if request.method == 'POST':
         name = request.POST.get('name')
