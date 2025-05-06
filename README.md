@@ -11,6 +11,9 @@ This project is structured into **three Django apps**:
 ### 1. `core`  
 - Home Page  
 - User Profile Page  
+- Shopping Pages (Product Listings & Detail Views)  
+- Add to Cart Functionality  
+- 🧠 **TrendBot AI Chatbot** (with a custom knowledge base)  
 
 ### 2. `account`  
 - Login / Logout / Sign Up pages  
@@ -25,36 +28,64 @@ This project is structured into **three Django apps**:
 
 ---
 
+## 🌟 Highlight Feature: TrendBot AI Chatbot
+
+> ⚡ **TrendBot** is an integrated AI chatbot designed to assist users with queries related to products, orders, and platform features. It is powered by a custom-trained knowledge base and runs entirely from the frontend interface.
+
+### 🔍 Key Features of TrendBot:
+
+- 🤖 Smart query handling with natural-sounding responses  
+- 📚 Integrated with a **custom knowledge base** specific to the Meesho clone  
+- 💬 User-friendly chatbot interface built using JavaScript and Django  
+- 🔒 Runs securely within the user session, no backend admin access required  
+- 🧠 Helps users navigate the platform, understand features, and engage with products  
+
+---
+
+## 🧩 Models
+
+- **`User`**: Django's built-in user model (for authentication)  
+- **`Account`**: Extended user information (via OneToOne relationship)  
+- **`Product`**: Stores product details (name, description, price, image, etc.)  
+- **`Cart`**: Represents each user's shopping cart  
+- **`AddToCart`**: Links products to the cart, tracking quantity  
+- **`Position`**: Represents job openings at Meesho (used in career section)  
+- **`Supply`**: Handles supplier applications submitted via the portal  
+
+---
+
 ## 🔐 Features
 
 - ✅ **User Authentication** (Login / Logout / Signup)  
-- ✅ **Image Upload System** (directly stored in the database)  
+- ✅ **Image Upload System** (stored in DB)  
 - ✅ **Custom Resume Review Portal for Employers**  
-  - Employers can view and manage resume data directly from the frontend  
-  - No need to access backend/admin panel manually  
-- ✅ **Flash Messages** with clean, styled UI  
-- ✅ **Responsive and UX-Friendly UI**  
-  - Designed for both users and employers  
-- ✅ **Password Security** (hashed and safely stored)  
-- ✅ **Structured Database Models** for better data handling
+- ✅ **Flash Messages** with a clean UI  
+- ✅ **Responsive, UX-Friendly Design**  
+- ✅ **Password Hashing & Security**  
+- ✅ **🧠 TrendBot AI Chatbot** (custom-trained assistant)  
+- ✅ **Cart System** — Add to cart, view cart, remove items  
+- ✅ **Product Listing and Detail View Pages**  
+- ✅ **Structured and Relational Models**  
 
 ---
 
 ## 🆚 Improvements from Previous Projects
 
-- Enhanced UI for flash messages and alerts  
-- More secure and organized database system  
-- Frontend-based employer interaction — no hardcoded data access  
-- More modular code and reusable components  
+- Modular and reusable codebase  
+- Integrated chatbot for user support  
+- Full cart and product system  
+- Realistic employer-facing dashboard  
+- Improved alerts and frontend UI  
+- Structured model relationships (OneToOne, ForeignKey, etc.)
 
 ---
 
 ## 🌱 Future Scope
 
-- 🛒 Cart functionality  
-- 🔍 Working Search Bar  
-- 💼 Additional Employer Tools and Filters  
-- 💳 Secure Payment System Integration  
+- 🛍️ Checkout & Order Placement  
+- 🔍 Search Functionality  
+- 💼 Resume Filtering and Employer Dashboards  
+- 💳 Payment Gateway Integration  
 
 ---
 
@@ -63,7 +94,8 @@ This project is structured into **three Django apps**:
 - **Backend**: Django, Python  
 - **Frontend**: HTML, CSS, JavaScript  
 - **Templating**: Django Jinja2  
-- **Database**: SQLite (can be scaled up to PostgreSQL/MySQL)  
+- **Database**: SQLite (scalable to PostgreSQL/MySQL)  
+- **AI Chatbot**: 🧠 **TrendBot** (custom chatbot integration)  
 
 ---
 
@@ -75,7 +107,6 @@ This project was developed by students of **Chitkara University, Punjab, India**
 - **Tanisha Garg**  
 - **Yashita Bansal**  
 - **Palak Bisht**
-
 
 ---
 
@@ -99,3 +130,4 @@ python manage.py migrate
 
 # Start the server
 python manage.py runserver
+
