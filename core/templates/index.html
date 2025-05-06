@@ -45,10 +45,11 @@
 
                 </div>
                 <form action="#" id="inputForm" method="GET">
-                    <input type="text" name="query" placeholder="Try Saree, Kurti or Search by Product Code" class="inputSearch" />
-                    <button type="submit" style="display: none;">Search</button>  <!-- Hidden submit button -->
+                    <input type="text" name="query" placeholder="Try Saree, Kurti or Search by Product Code"
+                        class="inputSearch" />
+                    <button type="submit" style="display: none;">Search</button> <!-- Hidden submit button -->
                 </form>
-                
+
                 <div class="inputCloseSearch">
                     <i class="fa-solid fa-xmark" id="closeSearch"></i>
                 </div>
@@ -94,15 +95,15 @@
             <div class="profileAndCart">
                 <div class="profileContainer">
                     <a href="{% url 'profile' %}" style="text-decoration: none;">
-                    <div class="profileIcon">
+                        <div class="profileIcon">
 
-                        <img src="{% static 'img/user.png' %}" alt="Example Image">
+                            <img src="{% static 'img/user.png' %}" alt="Example Image">
 
-                    </div>
+                        </div>
                     </a>
                     {% if user.is_authenticated %}
-                    <p>Hi, {{ user.username }}</p>
-                    
+                    <p class="username">Hi, {{ user.username }}</p>
+
                     {% else %}
                     <p>Welcome</p>
                     {% endif %}
@@ -115,7 +116,7 @@
                         <img src="{% static 'img/cart.png' %}" alt="Example Image">
 
                     </div>
-                    <p>Cart</p>
+                    <a href="{% url 'cart' %}" style="text-decoration: none; color: black;"><p>Cart</p></a>
                 </div>
             </div>
         </div>
@@ -146,42 +147,41 @@
                     </div>
                 </div>
             </li>
-            <li>Kids
+            <li><a href="{% url 'kids' %}" style="text-decoration: none; color: black;">Kids</a> 
                 <div class="subMenu">
                     <div id="kids" class="submenuList">
 
                     </div>
                 </div>
             </li>
-            <li>Home & Kitchen
-                <div class="subMenu">
+            <li><a href="{% url 'kitchen' %}" style="text-decoration: none; color: black;">Home and kitchen</a>              <div class="subMenu">
                     <div id="HomeAndKitchen" class="submenuList">
 
                     </div>
                 </div>
             </li>
-            <li>Beauty & Health
+            <li><a href="{% url 'bags' %}" style="text-decoration: none; color: black;">Beauty & Health</a> 
                 <div class="subMenu">
                     <div id="beautyAndHealth" class="submenuList">
 
                     </div>
                 </div>
             </li>
-            <li>Jewellery & Accessories
+            <li><a href="{% url 'jwel' %}" style="text-decoration: none; color: black;">Jewellery & Accessories</a> 
                 <div class="subMenu">
                     <div id="JewelleryAndAccessories" class="submenuList">
 
                     </div>
                 </div>
             </li>
-            <li>Bags & Footwear
+            <li><a href="{% url 'bags' %}" style="text-decoration: none; color: black;">Bags & Footwear</a>   
                 <div class="subMenu">
                     <div id="BagsFootWarId" class="submenuList">
 
                     </div>
                 </div>
             </li>
-            <li>Electronics
+            <li><a href="{% url 'electronics' %}" style="text-decoration: none; color: black;">Electronics</a>   
                 <div class="subMenu">
                     <div id="ElectronicsId" class="submenuList">
 
@@ -222,9 +222,9 @@
             <button class="downloadApp_contianer">
                 <div class="downloadAppIcon">
                     <!-- <img src="https://images.meesho.com/images/pow/playstoreSmallIcon.webp" /> -->
-                    <p><a href="{% url 'career' %}" style="text-decoration: none; color: white;">Career With Us</a></p>
+                    <p><a href="{% url 'career' %}" style="text-decoration: none; color: white; margin: auto;">Career With Us</a></p>
                 </div>
-                
+
             </button>
 
         </div>
@@ -323,7 +323,19 @@
 
 
     <script type="module" src="{% static 'js/script.js' %}"></script>
-
+    <script>
+        (function () { if (!window.chatbase || window.chatbase("getState") !== "initialized") { window.chatbase = (...arguments) => { if (!window.chatbase.q) { window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop) { if (prop === "q") { return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function () { const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "yZCbjPd1rLsttmGyaE8rH"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) } })();
+    </script>
+    <script>
+        let usr=document.querySelector('.username');
+        let origionalText=usr.innerText;
+        usr.addEventListener('mouseenter',function(event){
+            usr.innerText="View Profile";
+        })
+        usr.addEventListener('mouseleave',function(event){
+            usr.innerText=origionalText;
+        })
+    </script>
 
 
 </body>

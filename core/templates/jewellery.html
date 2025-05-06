@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jewellery - Meesho Clone</title>
+  <link rel="stylesheet" href="{% static 'css/jewellery.css' %}" />
+</head>
+<body>
+  <header>
+    <h1>Jewellery</h1>
+    <input type="text" placeholder="Search products..." />
+  </header>
+
+  <section class="product-grid">
+    {% for product in products %}
+      <div class="product-card">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        <h3>{{ product.name }}</h3>
+        <p>₹{{ product.discounted_price }}</p>
+        <!-- Add product ID to button as data attribute -->
+        <a href="{% url 'add_to_cart' product.id %}">
+          <button>Add to Cart</button>
+        </a>
+      </div>
+    {% endfor %}
+  </section>
+</body>
+</html>

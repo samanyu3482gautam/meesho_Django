@@ -17,13 +17,15 @@
         {{ message }}
         {% endfor %}
     </div>
-
     {% endif %}
+    
+    <!-- Username Input -->
     <div class="form-group">
       <label for="username">Username</label>
-      <input type="text" id="username" name="username" placeholder="Enter username" required />
+      <input type="text" id="username" name="username" value="{{ username|default:'' }}" placeholder="Enter username" required />
     </div>
 
+    <!-- Password Input -->
     <div class="form-group">
       <label for="password">Password</label>
       <input type="password" id="password" name="password" placeholder="Enter password" required />
@@ -36,3 +38,4 @@
     </div>
   </form>
 {% endblock %}
+

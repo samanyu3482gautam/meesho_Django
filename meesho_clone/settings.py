@@ -107,3 +107,6 @@ MEDIA_URL='/media/'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+LOGIN_URL = '/login/'  # This should exactly match your login page URL path

@@ -545,3 +545,9 @@ nav ul li:hover .subMenu{
 .product_name{
     text-transform: capitalize;
 }
+.downloadAppIcon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}

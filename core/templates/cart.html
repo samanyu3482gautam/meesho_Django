@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meesho Clone - Your Cart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="cart-header">
+        <div class="container">
+            <a href="/" class="logo">Meesho</a>
+            <div class="search-bar">
+                <input type="text" placeholder="Search for products...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <div class="user-actions">
+                <a href="{% url 'profile' %}"><i class="fas fa-user"></i></a>
+                <a href="{% url 'home' %}"><i class="fa-solid fa-house"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Cart Section -->
+    <main class="cart-container">
+        <div class="container">
+            <h1>Your Shopping Cart</h1>
+            
+            <div class="cart-wrapper">
+                <!-- Cart Items -->
+                <div class="cart-items">
+                    {% if cart.items.all %}
+                        {% for item in cart.items.all %}
+                            <div class="cart-item">
+                                <div class="item-image">
+                                    <img src="{{ item.product.image.url }}" alt="Product Image">
+                                </div>
+                                <div class="item-details">
+                                    <h3 class="item-title">{{ item.product.name }}</h3>
+                                    <p class="item-seller">Sold by: {{ item.product.seller }}</p>
+                                    <div class="item-price">
+                                        <span class="current-price">₹{{ item.product.price }}</span>
+                                        <span class="original-price">₹{{ item.product.original_price }}</span>
+                                        <span class="discount">{{ item.product.discount_percentage }}% OFF</span>
+                                    </div>
+                                    <div class="item-actions">
+                                        <div class="quantity-selector">
+                                            <button class="decrement" >-</button>
+                                            <input type="number" value="{{ item.quantity }}" min="1" class="quantity" readonly>
+                                            <button class="increment" >+</button>
+                                        </div>
+                                        <button class="remove-item" >Remove</button>
+                                        <button class="save-later">Save for later</button>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>Your cart is empty!</p>
+                    {% endif %}
+                </div>
+
+                <!-- Price Summary -->
+                <div class="price-summary">
+                    <h3>Price Details</h3>
+                    <div class="price-details">
+                        <div class="price-row">
+                            <span>Total MRP</span>
+                            <span>₹{{ total}}</span>
+                        </div>
+                        <div class="price-row">
+                            <span>Discount on MRP</span>
+                            <span class="discount-text">-₹{{ cart.total_discount }}</span>
+                        </div>
+                        <div class="price-row">
+                            <span>Delivery Charges</span>
+                            <span class="delivery-text">FREE</span>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="total-amount">
+                            <span>Total Amount</span>
+                            <span>₹{{final_amount}}</span>
+                        </div>
+                    </div>
+                    <button class="checkout-btn">Proceed to Checkout</button>
+                    <div class="secure-payment">
+                        <i class="fas fa-lock"></i>
+                        <span>Safe and Secure Payments</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="cart-footer">
+        <div class="container">
+            <div class="footer-links">
+                <div class="footer-section">
+                    <h4>Shop Non-Stop on Meesho</h4>
+                    <p>Trusted by more than 1 Crore Indians</p>
+                    <p>Cash on Delivery | Free Delivery</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Help & Support</h4>
+                    <a href="#">About Us</a>
+                    <a href="#">Contact Us</a>
+                    <a href="#">FAQ</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Download App</h4>
+                    <div class="app-download">
+                        <img src="https://png.pngtree.com/png-clipart/20230916/original/pngtree-google-play-store-vector-png-image_12256666.png" alt="Google Play">
+                        <img src="https://1000logos.net/wp-content/uploads/2020/08/App-Store-Logo-2013.png" alt="App Store">
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2025 Meesho Clone. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/cart.js' %}"></script>
+    
+</body>
+</html>
+
